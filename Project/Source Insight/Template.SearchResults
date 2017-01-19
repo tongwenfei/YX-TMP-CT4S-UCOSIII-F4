@@ -1,0 +1,14 @@
+---- CalibrationVaule Matches (13 in 1 files) ----
+ConfigWindow.c (e:\stm32\stm32f4\yx-tmp-ct4s ucosiii-f4\gui):uint16_t CalibrationVaule[4][11]={0};
+ConfigWindow.c (e:\stm32\stm32f4\yx-tmp-ct4s ucosiii-f4\gui):    CalibrationVaule[CalibrationCH-1][i]=CalibrationChar[CalibrationCH-1][i][0]*100+CalibrationChar[CalibrationCH-1][i][1]*10+CalibrationChar[CalibrationCH-1][i][2];
+ConfigWindow.c (e:\stm32\stm32f4\yx-tmp-ct4s ucosiii-f4\gui):   CalibrationVaule[CalibrationCH-1][10]=CalibrationChar[CalibrationCH-1][10][0]*1000+CalibrationChar[CalibrationCH-1][10][1]*100+CalibrationChar[CalibrationCH-1][10][2]*10+CalibrationChar[CalibrationCH-1][10][2];
+ConfigWindow.c (e:\stm32\stm32f4\yx-tmp-ct4s ucosiii-f4\gui):  sprintf((char*)buff,"%03d",CalibrationVaule[CalibrationCH-1][1]);
+ConfigWindow.c (e:\stm32\stm32f4\yx-tmp-ct4s ucosiii-f4\gui):  sprintf((char*)buff,"%03d",CalibrationVaule[CalibrationCH-1][2]);
+ConfigWindow.c (e:\stm32\stm32f4\yx-tmp-ct4s ucosiii-f4\gui):  sprintf((char*)buff,"%03d",CalibrationVaule[CalibrationCH-1][3]);
+ConfigWindow.c (e:\stm32\stm32f4\yx-tmp-ct4s ucosiii-f4\gui): sprintf((char*)buff,"%03d",CalibrationVaule[CalibrationCH-1][4]);
+ConfigWindow.c (e:\stm32\stm32f4\yx-tmp-ct4s ucosiii-f4\gui):  sprintf((char*)buff,"%03d",CalibrationVaule[CalibrationCH-1][5]);
+ConfigWindow.c (e:\stm32\stm32f4\yx-tmp-ct4s ucosiii-f4\gui):  sprintf((char*)buff,"%03d",CalibrationVaule[CalibrationCH-1][6]);
+ConfigWindow.c (e:\stm32\stm32f4\yx-tmp-ct4s ucosiii-f4\gui):  sprintf((char*)buff,"%03d",CalibrationVaule[CalibrationCH-1][7]);
+ConfigWindow.c (e:\stm32\stm32f4\yx-tmp-ct4s ucosiii-f4\gui):  sprintf((char*)buff,"%03d",CalibrationVaule[CalibrationCH-1][8]);
+ConfigWindow.c (e:\stm32\stm32f4\yx-tmp-ct4s ucosiii-f4\gui):  sprintf((char*)buff,"%03d",CalibrationVaule[CalibrationCH-1][9]);
+ConfigWindow.c (e:\stm32\stm32f4\yx-tmp-ct4s ucosiii-f4\gui): sprintf((char*)buff,"%04d",CalibrationVaule[CalibrationCH-1][10]);
