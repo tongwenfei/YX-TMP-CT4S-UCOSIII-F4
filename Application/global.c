@@ -44,7 +44,7 @@ uint8_t Time_flag,Uart_flag,Param_flag,Clean_flag,Factory_flag,Updata_flag,Help_
 PID_STRUCT FlowPID_struct[4],TempPID_struct;
 SAMPLING_STATE Sampling_State[4];
 SAMPLING_STATE Calibrate_State[4];
-
+uint8_t Intervals_State[4]={false};
 void FloatToUshort(float input,uint16_t *output)
 {
     output[0]=*(uint16_t *)&input;

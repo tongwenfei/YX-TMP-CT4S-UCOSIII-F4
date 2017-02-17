@@ -2712,12 +2712,6 @@
         <name>$PROJ_DIR$\..\..\FreeModbus\modbus\mb.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\FreeModbus\modbus\ascii\mbascii.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\FreeModbus\modbus\ascii\mbascii.h</name>
-      </file>
-      <file>
         <name>$PROJ_DIR$\..\..\FreeModbus\modbus\rtu\mbcrc.c</name>
       </file>
       <file>
@@ -2746,12 +2740,6 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\FreeModbus\modbus\rtu\mbrtu.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\FreeModbus\modbus\tcp\mbtcp.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\FreeModbus\modbus\tcp\mbtcp.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\FreeModbus\modbus\functions\mbutils.c</name>

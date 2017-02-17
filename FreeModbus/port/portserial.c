@@ -24,7 +24,7 @@
 /* ----------------------- Modbus includes ----------------------------------*/
 #include "mb.h"
 #include "mbport.h"
-
+#include "os.h"
 //
 //添加外部头文件
 //
@@ -195,7 +195,11 @@ void prvvUARTRxISR( void )
 **/
 void USART1_IRQHandler(void)
 {
-	if (USART_GetITStatus(USART1, USART_IT_RXNE) == SET)  //接收中断
+CPU_SR_ALLOC();
+
+
+    CPU_CRITICAL_ENTER();	
+  if (USART_GetITStatus(USART1, USART_IT_RXNE) == SET)  //接收中断
 	{
 		prvvUARTRxISR();
 		USART_ClearITPendingBit(USART1, USART_IT_RXNE);
@@ -206,4 +210,5 @@ void USART1_IRQHandler(void)
 		prvvUARTTxReadyISR();
 		USART_ClearITPendingBit(USART1, USART_IT_TXE);
 	}
+  CPU_CRITICAL_EXIT();	//退出临界区	
 }

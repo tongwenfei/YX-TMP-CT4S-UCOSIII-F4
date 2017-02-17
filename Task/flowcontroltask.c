@@ -15,7 +15,10 @@
 #include "flow_PID.h"
 #include "global.h"
 #include "port.h"
+#include "CH_SetWindow.h"
+#include "timer.h"
 extern SYSTEM_CALIBRATION Calibrate_buff;
+extern uint32_t Intervals_Count[4];
 //任务控制块
 OS_TCB FlowControlTaskTCB;
 //任务堆栈	
@@ -67,13 +70,13 @@ void Cal_FlowValue(void)
         
         
         
-//        FlowPID_struct[i].Flow_Value = 6.408320683852675*pow(FlowPID_struct[i].Value,6)\
-//                                      -111.8440311985473*pow(FlowPID_struct[i].Value,5)\
-//                                      +789.3057051733712*pow(FlowPID_struct[i].Value,4)\
-//                                      -2865.533837029761*pow(FlowPID_struct[i].Value,3)\
-//                                      +5642.592013462648*pow(FlowPID_struct[i].Value,2)\
-//                                      -5585.834292463589*FlowPID_struct[i].Value\
-//                                      +2124.909312422997;
+        //        FlowPID_struct[i].Flow_Value = 6.408320683852675*pow(FlowPID_struct[i].Value,6)\
+        //                                      -111.8440311985473*pow(FlowPID_struct[i].Value,5)\
+        //                                      +789.3057051733712*pow(FlowPID_struct[i].Value,4)\
+        //                                      -2865.533837029761*pow(FlowPID_struct[i].Value,3)\
+        //                                      +5642.592013462648*pow(FlowPID_struct[i].Value,2)\
+        //                                      -5585.834292463589*FlowPID_struct[i].Value\
+        //                                      +2124.909312422997;
         
         
         
@@ -133,37 +136,37 @@ void Cal_FlowValue(void)
         //          FlowPID_struct[i].Flow_Value= (1002.945617223990*FlowPID_struct[i].Value-4036.573567603976)*Calibrate_buff.Calibration_Point[i][8]; 
         //        else if((FlowPID_struct[i].Value>4.9432)&&(FlowPID_struct[i].Value<=5.0411))  
         //          FlowPID_struct[i].Flow_Value= (1190.462906083756*FlowPID_struct[i].Value-4943.689718725041)*Calibrate_buff.Calibration_Point[i][9];  
-       
+        
         
         if(DEBUG_MODE[i]!=2)
         {
-       if((FlowPID_struct[i].Value>1.5)&&(FlowPID_struct[i].Value<=5.1))
-       {
-
-         
-        
-                                      
-         FlowPID_struct[i].Flow_Value=Calibrate_buff.Calibration_Point[i][0]*pow(FlowPID_struct[i].Value,6)+\
-                                      Calibrate_buff.Calibration_Point[i][1]*pow(FlowPID_struct[i].Value,5)+\
-                                      Calibrate_buff.Calibration_Point[i][2]*pow(FlowPID_struct[i].Value,4)+\
-                                      Calibrate_buff.Calibration_Point[i][3]*pow(FlowPID_struct[i].Value,3)+\
-                                      Calibrate_buff.Calibration_Point[i][4]*pow(FlowPID_struct[i].Value,2)+\
-                                      Calibrate_buff.Calibration_Point[i][5]*FlowPID_struct[i].Value+\
-                                      Calibrate_buff.Calibration_Point[i][6];                                      
-       }
-       else if((FlowPID_struct[i].Value>5.1)&&(FlowPID_struct[i].Value<=5.2)) FlowPID_struct[i].Flow_Value=1100;
-       else if((FlowPID_struct[i].Value>5.2)&&(FlowPID_struct[i].Value<=5.3)) FlowPID_struct[i].Flow_Value=1200;
-       else if((FlowPID_struct[i].Value>5.3)&&(FlowPID_struct[i].Value<=5.4)) FlowPID_struct[i].Flow_Value=1300;
-       else if((FlowPID_struct[i].Value>5.4)) FlowPID_struct[i].Flow_Value=1400;
+          if((FlowPID_struct[i].Value>1.5)&&(FlowPID_struct[i].Value<=5.1))
+          {
+            
+            
+            
+            
+            FlowPID_struct[i].Flow_Value=Calibrate_buff.Calibration_Point[i][0]*pow(FlowPID_struct[i].Value,6)+\
+              Calibrate_buff.Calibration_Point[i][1]*pow(FlowPID_struct[i].Value,5)+\
+                Calibrate_buff.Calibration_Point[i][2]*pow(FlowPID_struct[i].Value,4)+\
+                  Calibrate_buff.Calibration_Point[i][3]*pow(FlowPID_struct[i].Value,3)+\
+                    Calibrate_buff.Calibration_Point[i][4]*pow(FlowPID_struct[i].Value,2)+\
+                      Calibrate_buff.Calibration_Point[i][5]*FlowPID_struct[i].Value+\
+                        Calibrate_buff.Calibration_Point[i][6];                                      
+          }
+          else if((FlowPID_struct[i].Value>5.1)&&(FlowPID_struct[i].Value<=5.2)) FlowPID_struct[i].Flow_Value=1100;
+          else if((FlowPID_struct[i].Value>5.2)&&(FlowPID_struct[i].Value<=5.3)) FlowPID_struct[i].Flow_Value=1200;
+          else if((FlowPID_struct[i].Value>5.3)&&(FlowPID_struct[i].Value<=5.4)) FlowPID_struct[i].Flow_Value=1300;
+          else if((FlowPID_struct[i].Value>5.4)) FlowPID_struct[i].Flow_Value=1400;
         }
         
-      
-   
+        
+        
         
         
       }
       
-
+      
       
       if(FlowPID_struct[i].Flow_Value<0)FlowPID_struct[i].Flow_Value=0;
       if((FlowPID_struct[i].Flow_Value>(FlowPID_struct[i].SetPoint*1010))||(FlowPID_struct[i].Flow_Value<(FlowPID_struct[i].SetPoint*990))||(DEBUG_MODE[i]==2))
@@ -171,11 +174,11 @@ void Cal_FlowValue(void)
         uint16_t pwm_vaule=0;
 	if(DEBUG_MODE[i]!=2)
         {
-        FlowPID_struct[i].Clac_Value= Flow_PID_Calculation(&FlowPID_struct[i],FlowPID_struct[i].Flow_Value/1000.0);
-        if(FlowPID_struct[i].Clac_Value<=0)FlowPID_struct[i].Clac_Value=0;
-        else if(FlowPID_struct[i].Clac_Value>2.5)FlowPID_struct[i].Clac_Value=2.5;
-        FlowPID_struct[i].PWM_Vaule=300+200*FlowPID_struct[i].Clac_Value;
-        pwm_vaule=FlowPID_struct[i].PWM_Vaule;
+          FlowPID_struct[i].Clac_Value= Flow_PID_Calculation(&FlowPID_struct[i],FlowPID_struct[i].Flow_Value/1000.0);
+          if(FlowPID_struct[i].Clac_Value<=0)FlowPID_struct[i].Clac_Value=0;
+          else if(FlowPID_struct[i].Clac_Value>2.5)FlowPID_struct[i].Clac_Value=2.5;
+          FlowPID_struct[i].PWM_Vaule=300+200*FlowPID_struct[i].Clac_Value;
+          pwm_vaule=FlowPID_struct[i].PWM_Vaule;
         }
         else if(DEBUG_MODE[i]==2) pwm_vaule=FlowPID_struct[i].PWM_Vaule;
 	switch(i)
@@ -200,9 +203,9 @@ void Cal_FlowValue(void)
 	  }break;
 	case 3:
 	  {
-	   
+            
 	    TIM_SetCompare3(TIM3,pwm_vaule);
-             PUMP2_ON();
+            PUMP2_ON();
 	  }break;
 	  
 	}
@@ -241,7 +244,31 @@ void Cal_FlowValue(void)
 	
       }
     }
+    if(Definite_Count[i]/600.0>=Sampling_Mode.Definite_Time[i])//采样时间大于定时时间
+    {
+      
+      Stop_Sampling(i+1);
+      if((Sampling_Mode.Intervals_Time[i]>0)&&(Sampling_Mode.isManually==false))
+      {
+        Intervals_State[i]=true;
+      }
+      else
+      {
+        Intervals_State[i]=false;
+        Sampling_Mode.Definite_Time[i]=0;
+      }
+    }
+    if((Sampling_State[i]==Stop)&&(Sampling_Mode.Definite_Time[i]>0)&&(Sampling_Mode.Intervals_Time[i]>0)&&(Sampling_Mode.isManually==false))//采样停止状态，定时时间大于0，处于间隔采样状态
+    {
+      if(Intervals_Count[i]/600.0>Sampling_Mode.Intervals_Time[i])
+      {
+        Intervals_State[i]=false;
+        Definite_Count[i]=0;
+        Start_Sampling(i+1);
+      }
+    }
   }
+  
 }
 
 void FlowControlTask(void *pdata)

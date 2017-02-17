@@ -6,6 +6,7 @@
 //psc：时钟预分频数
 //这里使用的是定时器6!
 uint32_t Definite_Count[4]={0};
+uint32_t Intervals_Count[4]={0};
 bool isPause=false;
 uint16_t cnt_buf=0;
 void TIM6_Init(u16 arr,u16 psc)
@@ -38,22 +39,13 @@ void TIM6_DAC_IRQHandler(void)
 {
   if(TIM_GetITStatus(TIM6,TIM_IT_Update)!=RESET)
   {
-    if(Sampling_State[0]==Runing)
+
+    for(uint8_t i=0;i<4;i++)
     {
-      Definite_Count[0]++;
+      if(Sampling_State[i]==Runing)Definite_Count[i]++;
+      if(Intervals_State[i])Intervals_Count[i]++;
     }
-    if(Sampling_State[1]==Runing)
-    {
-      Definite_Count[1]++;
-    }
-    if(Sampling_State[2]==Runing)
-    {
-      Definite_Count[2]++;
-    }
-    if(Sampling_State[3]==Runing)
-    {
-      Definite_Count[3]++;
-    }
+   
     
   }
   TIM_ClearITPendingBit(TIM6,TIM_IT_Update); //清除中断标志位

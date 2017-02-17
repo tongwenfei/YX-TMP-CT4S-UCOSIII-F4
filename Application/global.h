@@ -9,7 +9,7 @@
 #ifndef __GLOBAL_H__
 #define __GLOBAL_H__
 #include "flow_PID.h"
-
+#include "GUI.H"
 //
 //#ifdef MAITASK_C
 //#define MAINEXT 
@@ -185,6 +185,7 @@ extern SYSTEM_STORAGE g_StorageData;
 extern DEFAULT_STORAGE g_DefaultData;
 extern SAMPLING_STATE Sampling_State[4];
 extern SAMPLING_STATE Calibrate_State[4];
+extern uint8_t Intervals_State[4];
 /******************************ucos相关定义******************************/
 void FloatToUshort(float input,uint16_t *output);
 
